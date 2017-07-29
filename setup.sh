@@ -214,7 +214,6 @@ if [ "${CONFIG_NGINX_PHP}" = true ] ; then
     sed -i -e "s/##TEMPLATE_DEFINE_PATH##/${SED_ROOT_PATH}/g" template/nginx.sites-available.default.tmp
     cp -R /var/www/html ${ROOT_PATH}
     chown ${USER_NAME}:${USER_NAME} ${ROOT_PATH}
-    sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.bak
     sudo mv template/nginx.sites-available.default.tmp /etc/nginx/sites-available/default
 fi
 

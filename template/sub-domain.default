@@ -1,0 +1,18 @@
+server {
+        listen 80;
+        server_name ##TEMPLATE_DEFINE_SERVER_NAME##;
+
+        root ##TEMPLATE_DEFINE_PATH##;
+        index index.php index.html index.htm;
+
+        try_files \$uri \$uri/ @rewrite;
+
+        location @rewrite {
+                rewrite ^/(.*)$ /index.php?_url=/\$1;
+        }
+
+        location ~ \.php$ {
+            include snippets/fastcgi-php.conf;
+            fastcgi_pass unix:/var/run/php/php7.0-fpm.sock;
+        }
+}
