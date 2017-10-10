@@ -79,14 +79,16 @@ fi
 #firewall
 if [ "${CONFIG_FIREWALL}" = true ] ; then
     sudo iptables -L
-    cp template/iptables.firewall.rules template/iptables.firewall.rules.tmp
-    sed -i -e "s/##TEMPLATE_DEFINE_PORT##/${SSH_PORT}/g" template/iptables.firewall.rules.tmp
-    mv /etc/iptables.firewall.rules /etc/iptables.firewall.rules.bak
-    mv template/iptables.firewall.rules.tmp /etc/iptables.firewall.rules
-    sudo iptables-restore < /etc/iptables.firewall.rules
-    sudo iptables -L
+    cp template/v4 template/v4.tmp
+    sed -i -e "s/##TEMPLATE_DEFINE_PORT##/${SSH_PORT}/g" template/v4.tmp
+    sudo mkdir /etc/iptables
+    mv template/v4.tmp /etc/iptables/v4
+    mv template/v6 /etc/iptables/v6
     cp template/firewall /etc/network/if-pre-up.d/firewall
     sudo chmod +x /etc/network/if-pre-up.d/firewall
+    sudo sh /etc/network/if-pre-up.d/firewall
+    sudo iptables -L
+    sudo ip6tables -L
 fi
 
 

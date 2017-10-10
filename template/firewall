@@ -1,2 +1,3 @@
 #!/bin/sh
-/sbin/iptables-restore < /etc/iptables.firewall.rules
+/sbin/iptables-restore < /etc/iptables/v4
+/sbin/ip6tables-restore < /etc/iptables/v6
